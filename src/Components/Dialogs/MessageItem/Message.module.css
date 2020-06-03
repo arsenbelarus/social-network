@@ -1,3 +1,9 @@
 .message {
     padding: 10px;
+    border: 1px dotted gray;
+    border-radius: 30px;
+    width: 200px;
+    height: fit-content;
+    box-sizing: border-box;
+    margin: 10px auto;
 }

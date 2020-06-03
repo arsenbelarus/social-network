@@ -1,7 +1,25 @@
 .dialog {
     padding: 10px;
+    border: 1px solid deeppink;
+    margin: 10px;
+    border-radius: 20px;
+}
+
+.dialog a {
+    text-decoration: none;
+    color: deeppink;
+    font-size: 1.2em;
 }
 
 .active {
-    color: maroon;
+    color: gold;
+}
+
+.dialog img {
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    padding: 5px;
+    vertical-align: top;
+    margin-right: 10px;
 }

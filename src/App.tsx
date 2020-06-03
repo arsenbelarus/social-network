@@ -9,18 +9,24 @@ import Music from "./Components/Music/Music";
 import News from "./Components/News/News";
 import Settings from "./Components/Settings/Settings";
 
-function App() {
+type propsType = {
+    state: any,
+}
+
+
+function App(props: propsType) {
+
     return (
         <BrowserRouter>
             <div className={"app-wrapper"}>
                 <Header/>
-                <Navbar/>
+                <Navbar friends = {props.state.friends}/>
                 <div className={"app-wrapper-content"}>
-                    <Route path='/profile' component={Profile}/>
-                    <Route path='/dialogs' component={Dialogs}/>
-                    <Route path='/news' component={News}/>
-                    <Route path='/music' component={Music}/>
-                    <Route path='/settings' component={Settings}/>
+                    <Route path='/profile' render={() => <Profile posts = {props.state.profilePage}/>}/>
+                    <Route path='/dialogs' render={() => <Dialogs messages = {props.state.messagesPage}/>}/>
+                    <Route path='/news' render={() => <Music />}/>
+                    <Route path='/music' render={() => <News />}/>
+                    <Route path='/settings' render={() => <Settings />}/>
                 </div>
             </div>
         </BrowserRouter>

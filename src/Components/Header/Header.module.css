@@ -7,3 +7,9 @@
 .header img {
     width: 80px;
 }
+
+.header h1 {
+    grid-area: h;
+    margin: 0;
+    padding: 0;
+}

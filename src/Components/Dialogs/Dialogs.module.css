@@ -1,6 +1,7 @@
 .dialogs {
     display: grid;
     grid-template-columns: 2fr 10fr;
+    grid-gap: 10px;
 }
 
 .dialogsItems {
@@ -8,7 +9,26 @@
 }
 
 .messages {
+    color: deeppink;
+    display: table;
+    margin-top: 20px;
+}
 
+.messagesRow {
+    display: table-row;
+    text-align: center;
+}
+
+.messagesCell1 {
+    display: table-cell;
+    width: 50%;
+    border-right: 1px dotted gray;
+
+}
+
+.messagesCell2 {
+    display: table-cell;
+    width: 50%;
 }
 
 

@@ -10,6 +10,7 @@ type DialogItem = {
 function DialogItem(props: DialogItem) {
     return (
         <div className={`${s.dialog} ${s.active}`}>
+            <img src={"https://greendestinations.org/wp-content/uploads/2019/05/avatar-exemple.jpg"}/>
             <NavLink to={'/dialogs/' + props.id}> {props.name} </NavLink>
         </div>
     )
