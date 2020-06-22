@@ -1,8 +1,9 @@
 import React from 'react';
 import s from './Friends.module.css';
+import {friendsType} from "../../../Redux/state";
 
 type propsType = {
-    friends: any,
+    friends:  friendsType[],
 }
 function Friends(props: propsType) {
 

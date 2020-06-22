@@ -1,11 +1,14 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css';
-import {NavLink} from "react-router-dom";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./MessageItem/Message";
+import {addMessageActionCreator, updateNewMessageTextActionCreator,} from "../../Redux/messageReducer";
+import {messagesPageType} from "../../Redux/state";
 
 type propsType = {
-    messages: any,
+    messages: messagesPageType,
+    dispatch: (action: any) => void,
+    newMessageText: string,
 }
 
 function Dialogs(props: propsType) {
@@ -13,6 +16,20 @@ function Dialogs(props: propsType) {
                                                                                                           id={d.id}/>)
     let messageElementsLeft = props.messages.messagesDataLeft.map((m: { message: string; }) => <Message message={m.message}/>)
     let messageElementsRight = props.messages.messagesDataRight.map((m: { message: string; }) => <Message message={m.message}/>)
+
+    let newMessageBody = props.newMessageText
+
+    const addMessage = () => {
+        props.dispatch ( addMessageActionCreator() )
+    }
+
+    const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        let newMessage = e.target.value;
+        if (newMessage) {
+            props.dispatch (updateNewMessageTextActionCreator(newMessage))
+            console.log(props.newMessageText);
+        }
+    }
 
     return (
         <div className={s.dialogs}>
@@ -23,6 +40,12 @@ function Dialogs(props: propsType) {
                 <div className={s.messagesRow}>
                     <div className={s.messagesCell1}>
                         {messageElementsLeft}
+                        <div>
+                            <textarea value={newMessageBody} onChange={onChangeHandler}/>
+                        </div>
+                        <div>
+                            <button onClick={addMessage}> Add message </button>
+                        </div>
                     </div>
                     <div className={s.messagesCell2}>
                         {messageElementsRight}
