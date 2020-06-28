@@ -6,8 +6,9 @@ import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../Red
 
 type propsType = {
     posts: Array<{ id: number, message: string, likesCount: number }>,
-    dispatch: (action: any) => void,
     newPostText: string,
+    updateNewPostText: (text: string) => void,
+    addPost: () => void,
 }
 
 
@@ -16,15 +17,16 @@ function MyPosts (props: propsType) {
     let postElements = props.posts.map(p => <Post message ={p.message} likesCount = {p.likesCount} />)
     let newPost: React.RefObject<HTMLTextAreaElement> = React.createRef<HTMLTextAreaElement>()
 
-    let addPost = () => {
-        props.dispatch ( addPostActionCreator() );
+    const addPost = () => {
+        props.addPost();
     }
-    let onChangeHandler = () => {
+    const onChangeHandler = () => {
         let newText = newPost.current?.value;
         if (newText) {
-            props.dispatch (updateNewPostTextActionCreator(newText));
+            props.updateNewPostText(newText);
         }
     }
+
     return (
         <div className={s.main}>
             <h3> My posts </h3>

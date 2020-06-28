@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './Profile.module.css';
-import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 type propsType = {
     posts: Array<{ id: number, message: string, likesCount: number }>,
@@ -14,7 +14,7 @@ function Profile(props: propsType) {
     return (
         <div className={s.content}>
             <ProfileInfo/>
-            <MyPosts posts = {props.posts}
+            <MyPostsContainer posts = {props.posts}
                      dispatch = {props.dispatch}
                      newPostText = {props.newPostText}/>
         </div>

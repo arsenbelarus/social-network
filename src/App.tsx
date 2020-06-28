@@ -8,10 +8,11 @@ import Dialogs from "./Components/Dialogs/Dialogs";
 import Music from "./Components/Music/Music";
 import News from "./Components/News/News";
 import Settings from "./Components/Settings/Settings";
-import { storeType } from './Redux/state';
+import {_stateType, storeType} from './Redux/state';
+import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 
 type propsType = {
-    state: storeType,
+    state: _stateType,
     dispatch: (action: any) => void,
 }
 
@@ -22,14 +23,14 @@ function App(props: propsType) {
         <BrowserRouter>
             <div className={"app-wrapper"}>
                 <Header/>
-                <Navbar friends = {props.state._state.friends}/>
+                <Navbar friends = {props.state.friends}/>
                 <div className={"app-wrapper-content"}>
-                    <Route path='/profile' render={() => <Profile posts = { props.state._state.profilePage.postsData }
-                                                                  newPostText = {props.state._state.profilePage.newPostText}
+                    <Route path='/profile' render={() => <Profile posts = { props.state.profilePage.postsData }
+                                                                  newPostText = {props.state.profilePage.newPostText}
                                                                   dispatch = {props.dispatch}/>}/>
-                    <Route path='/dialogs' render={() => <Dialogs messages = {props.state._state.messagesPage}
-                                                                  newMessageText = {props.state._state.messagesPage.newMessageText}
-                                                                  dispatch = {props.dispatch}/>}/>
+                    <Route path='/dialogs' render={() => <DialogsContainer messages = {props.state.messagesPage}
+                                                                           newMessageText = {props.state.messagesPage.newMessageText}
+                                                                           dispatch = {props.dispatch}/>}/>
                     <Route path='/news' render={() => <Music />}/>
                     <Route path='/music' render={() => <News />}/>
                     <Route path='/settings' render={() => <Settings />}/>
