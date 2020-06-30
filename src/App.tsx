@@ -8,12 +8,11 @@ import Dialogs from "./Components/Dialogs/Dialogs";
 import Music from "./Components/Music/Music";
 import News from "./Components/News/News";
 import Settings from "./Components/Settings/Settings";
-import {_stateType, storeType} from './Redux/state';
+import {_stateType, friendsType, storeType} from './Redux/state';
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 
 type propsType = {
-    state: _stateType,
-    dispatch: (action: any) => void,
+    stateForFriends: friendsType[],
 }
 
 
@@ -23,14 +22,10 @@ function App(props: propsType) {
         <BrowserRouter>
             <div className={"app-wrapper"}>
                 <Header/>
-                <Navbar friends = {props.state.friends}/>
+                <Navbar friends = {props.stateForFriends}/>
                 <div className={"app-wrapper-content"}>
-                    <Route path='/profile' render={() => <Profile posts = { props.state.profilePage.postsData }
-                                                                  newPostText = {props.state.profilePage.newPostText}
-                                                                  dispatch = {props.dispatch}/>}/>
-                    <Route path='/dialogs' render={() => <DialogsContainer messages = {props.state.messagesPage}
-                                                                           newMessageText = {props.state.messagesPage.newMessageText}
-                                                                           dispatch = {props.dispatch}/>}/>
+                    <Route path='/profile' render={() => <Profile />}/>
+                    <Route path='/dialogs' render={() => <DialogsContainer />}/>
                     <Route path='/news' render={() => <Music />}/>
                     <Route path='/music' render={() => <News />}/>
                     <Route path='/settings' render={() => <Settings />}/>

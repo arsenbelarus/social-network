@@ -3,11 +3,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import store from "./Redux/reduxStore";
-import {_stateType} from "./Redux/state";
+import store, {AppStateType} from "./Redux/reduxStore";
+import {_stateType, storeType} from "./Redux/state";
+import {Provider} from 'react-redux';
 
-let rerenderEntireTree = (state: _stateType) => {
-    ReactDOM.render(<App state={state} dispatch ={store.dispatch.bind(store)}/>, document.getElementById('root'));
+
+
+const rerenderEntireTree = (state: AppStateType) => {
+    ReactDOM.render(
+        <Provider store={store}>
+            <App stateForFriends = {state.friends} />
+        </Provider>, document.getElementById('root'));
 }
 
 rerenderEntireTree(store.getState())
