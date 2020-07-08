@@ -4,12 +4,12 @@ import './App.css';
 import Header from "./Components/Header/Header";
 import Navbar from "./Components/Navbar/Navbar";
 import Profile from "./Components/Profile/Profile";
-import Dialogs from "./Components/Dialogs/Dialogs";
 import Music from "./Components/Music/Music";
 import News from "./Components/News/News";
 import Settings from "./Components/Settings/Settings";
-import {_stateType, friendsType, storeType} from './Redux/state';
+import {friendsType} from './Redux/state';
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
+import UsersContainer from "./Components/Users/UsersContainer";
 
 type propsType = {
     stateForFriends: friendsType[],
@@ -29,6 +29,7 @@ function App(props: propsType) {
                     <Route path='/news' render={() => <Music />}/>
                     <Route path='/music' render={() => <News />}/>
                     <Route path='/settings' render={() => <Settings />}/>
+                    <Route path='/users' render={() => <UsersContainer /> }/>
                 </div>
             </div>
         </BrowserRouter>

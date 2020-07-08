@@ -3,25 +3,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import store, {AppStateType} from "./Redux/reduxStore";
-import {_stateType, storeType} from "./Redux/state";
+import store from "./Redux/reduxStore";
 import {Provider} from 'react-redux';
 
 
+ReactDOM.render(
+    <Provider store={store}>
+        <App stateForFriends={store.getState().friends}/>
+    </Provider>, document.getElementById('root'));
 
-const rerenderEntireTree = (state: AppStateType) => {
-    ReactDOM.render(
-        <Provider store={store}>
-            <App stateForFriends = {state.friends} />
-        </Provider>, document.getElementById('root'));
-}
-
-rerenderEntireTree(store.getState())
-
-store.subscribe(() => {
-    let state = store.getState()
-    rerenderEntireTree(state)
-})
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

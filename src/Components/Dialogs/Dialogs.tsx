@@ -14,7 +14,7 @@ type propsType = {
 
 function Dialogs(props: propsType) {
     let dialogElements = props.messages.dialogsData.map((d: { name: string; id: number; }) => <DialogItem name={d.name}
-                                                                                                          id={d.id}/>)
+                                                                                                          id={d.id} key={d.id}/>)
     let messageElementsLeft = props.messages.messagesDataLeft.map((m: { message: string; }) => <Message message={m.message}/>)
     let messageElementsRight = props.messages.messagesDataRight.map((m: { message: string; }) => <Message message={m.message}/>)
 
