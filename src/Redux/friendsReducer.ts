@@ -1,4 +1,4 @@
-import {friendsType} from "./state";
+import {friendsType} from "./Types";
 
 let initialState = [
     {name: "David", imgSource: "https://greendestinations.org/wp-content/uploads/2019/05/avatar-exemple.jpg"},

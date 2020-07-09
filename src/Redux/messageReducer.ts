@@ -1,4 +1,4 @@
-import {messagesPageType} from "./state";
+import {messagesPageType} from "./Types";
 
 const addMessage = "ADD-MESSAGE";
 const updateNewMessageText = "UPDATE-NEW-MESSAGE-TEXT";

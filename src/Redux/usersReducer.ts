@@ -1,4 +1,4 @@
-import {usersPageType, usersType} from "./state";
+import {usersPageType, usersType} from "./Types";
 
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
