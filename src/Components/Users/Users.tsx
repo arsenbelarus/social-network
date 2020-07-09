@@ -1,40 +1,55 @@
 import React from "react"
 import s from "./Users.module.css"
 import {usersType} from "../../Redux/state";
-import axios from 'axios'
 import avatarLogo from "../../Assets/Images/avatar.jpg"
 
-type propsType = {
-    users: usersType[],
-    unFollow: (userId: number) => void,
-    follow: (userId: number) => void,
-    setUsers: (users: usersType[]) => void,
+type UsersPropsType = {
+    totalUsersCount: number;
+    pageSize: number;
+    currentPage: number;
+    users: Array<usersType>;
+    unFollow: (id: number) => void;
+    follow: (id: number) => void;
+    onPaginationClickHandler: (p: number) => void;
 }
 
-const Users = (props: propsType) => {
+const Users = (props: UsersPropsType) => {
 
-    if(props.users.length === 0) {
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-            props.setUsers(response.data.items)
-        })
+    let pagesNumber = Math.ceil(props.totalUsersCount / props.pageSize)
+
+    let pages = []
+    for (let i = 1; i <= pagesNumber; i++) {
+        pages.push(i)
     }
 
     return (
+    <div>
         <div>
-            {
-                props.users.map(u =>
-                    <div key={u.id}>
+            {pages.map(p =>
+                <span className={(props.currentPage === p) && s.selectedPage} style={{cursor: "pointer"}}
+                      onClick={() => {
+                          props.onPaginationClickHandler(p)
+                      }}> {p} </span>
+            )}
+        </div>
+        {
+            props.users.map((u: usersType) =>
+                <div key={u.id}>
                         <span>
                             <div>
                                 <img src={u.photos.small ? u.photos.small : avatarLogo} className={s.usersPhoto}/>
                             </div>
                             <div>
                                 {u.followed
-                                    ? <button onClick={() => {props.unFollow(u.id)}}>UnFollow</button>
-                                    : <button onClick={() => {props.follow(u.id)}}>Follow</button>}
+                                    ? <button onClick={() => {
+                                        props.unFollow(u.id)
+                                    }}>UnFollow</button>
+                                    : <button onClick={() => {
+                                        props.follow(u.id)
+                                    }}>Follow</button>}
                             </div>
                         </span>
-                        <span>
+                    <span>
                             <span>
                                 <div>{u.name}</div>
                                 <div>{u.status}</div>
@@ -44,10 +59,10 @@ const Users = (props: propsType) => {
                                 <div>{"u.location.city"}</div>
                             </span>
                         </span>
-                    </div>
-                )
-            }
-        </div>
+                </div>
+            )
+        }
+    </div>
     )
 }
 

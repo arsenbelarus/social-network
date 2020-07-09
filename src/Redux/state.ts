@@ -7,11 +7,9 @@ export type profilePageType = { postsData: postsDataType, newPostText: string }
 export type dialogsDataType = { id: number, name: string}
 export type messagesDataType = { id: number, message: string }
 export type messagesPageType = { dialogsData: dialogsDataType[], messagesDataLeft: messagesDataType[], messagesDataRight: messagesDataType[], newMessageText: string }
-// export type usersLocationType = { country: string, city: string }
-// export type usersType = { id: number, followed: boolean, avatarUrl: string, fullName: string, status: string, location: usersLocationType }
 export type photosType = {small: string, large: string}
 export type usersType = { name: string, id: number, uniqueUrlName: string, photos: photosType, status: string, followed: boolean}
-export type usersPageType = { users: Array<usersType> }
+export type usersPageType = { users: Array<usersType>, pageSize: number, totalUsersCount: number, currentPage: number, isFetching: boolean }
 export type friendsType = { name: string, imgSource: string }
 export type _stateType = { profilePage: profilePageType, messagesPage: messagesPageType, usersPage: usersPageType, friends: friendsType[] }
 export type storeType = {
@@ -56,6 +54,10 @@ let store: storeType = {
         },
         usersPage: {
             users: [],
+            pageSize: 5,
+            totalUsersCount: 0,
+            currentPage: 1,
+            isFetching: false
         },
         friends: [
             {name: "David", imgSource: "https://greendestinations.org/wp-content/uploads/2019/05/avatar-exemple.jpg"},
