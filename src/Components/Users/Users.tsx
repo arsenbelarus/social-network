@@ -13,6 +13,8 @@ type UsersPropsType = {
     unFollow: (id: number) => void;
     follow: (id: number) => void;
     onPaginationClickHandler: (p: number) => void;
+    isFollowStatusChanging: Array<number>;
+    toggleIsFollowStatusChanging: (isFollowStatusChanging: boolean, userId: number) => void
 }
 
 const Users = (props: UsersPropsType) => {
@@ -45,18 +47,22 @@ const Users = (props: UsersPropsType) => {
                             </div>
                             <div className={s.button}>
                                 {u.followed
-                                    ? <button onClick={() => {
+                                    ? <button disabled={props.isFollowStatusChanging.some(id => id === u.id)} onClick={() => {
+                                        props.toggleIsFollowStatusChanging(true, u.id)
                                         userApi.unFollow(u.id).then(data => {
                                             if (data.resultCode === 0) {
                                                 props.unFollow(u.id)
                                             }
+                                            props.toggleIsFollowStatusChanging(false, u.id)
                                         });
                                     }}>UnFollow</button>
-                                    : <button onClick={() => {
+                                    : <button disabled={props.isFollowStatusChanging.some(id => id === u.id)} onClick={() => {
+                                        props.toggleIsFollowStatusChanging(true, u.id)
                                         userApi.follow(u.id).then(data => {
                                             if (data.resultCode === 0) {
                                                 props.follow(u.id)
                                             }
+                                            props.toggleIsFollowStatusChanging(false, u.id)
                                         });
                                     }}>Follow</button>}
                             </div>

@@ -6,6 +6,7 @@ const SET_USERS = "SET_USERS";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const SET_TOTAL_USERS_QUANTITY = "SET_TOTAL_USERS_QUANTITY";
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
+const TOGGLE_IS_FOLLOW_STATUS_CHANGING = "TOGGLE_IS_FOLLOW_STATUS_CHANGING";
 
 let initialState: usersPageType = {
     users: [],
@@ -13,6 +14,7 @@ let initialState: usersPageType = {
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
+    isFollowStatusChanging: [],
 }
 
 
@@ -64,17 +66,26 @@ const usersReducer = (state: usersPageType = initialState, action: any) => {
                 ...state,
                 isFetching: action.isFetching,
             }
+        case TOGGLE_IS_FOLLOW_STATUS_CHANGING:
+            return {
+                ...state,
+                isFollowStatusChanging: action.isFollowStatusChanging
+                    ? [...state.isFollowStatusChanging, action.userId]
+                    : state.isFollowStatusChanging.filter(id => id != action.userId),
+            }
 
         default:
             return state;
     }
 }
 
-export const follow = (userId: number) => ({type: FOLLOW, userId})
-export const unFollow = (userId: number) => ({type: UNFOLLOW, userId})
-export const setUsers = (users: usersType[]) => ({type: SET_USERS, users})
-export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage})
-export const setTotalUsersQuantity = (totalUsersQuantity: number) => ({type: SET_TOTAL_USERS_QUANTITY, totalUsersQuantity})
-export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching})
+export const follow = (userId: number) => ({type: FOLLOW, userId});
+export const unFollow = (userId: number) => ({type: UNFOLLOW, userId});
+export const setUsers = (users: usersType[]) => ({type: SET_USERS, users});
+export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage});
+export const setTotalUsersQuantity = (totalUsersQuantity: number) => ({type: SET_TOTAL_USERS_QUANTITY, totalUsersQuantity});
+export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching});
+export const toggleIsFollowStatusChanging = (isFollowStatusChanging: Array<number>, userId: number) =>
+    ({type: TOGGLE_IS_FOLLOW_STATUS_CHANGING, isFollowStatusChanging, userId});
 
 export default usersReducer;

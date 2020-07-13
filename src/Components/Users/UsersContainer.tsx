@@ -1,8 +1,10 @@
 import React from "react";
 import {connect} from "react-redux";
 import {_stateType} from "../../Redux/Types";
-import {follow, setCurrentPage, setTotalUsersQuantity,
-        setUsers, toggleIsFetching, unFollow} from "../../Redux/usersReducer";
+import {
+    follow, setCurrentPage, setTotalUsersQuantity,
+    setUsers, toggleIsFetching, toggleIsFollowStatusChanging, unFollow
+} from "../../Redux/usersReducer";
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
 import {userApi} from "../../API/api";
@@ -38,6 +40,8 @@ class UsersAPIContainer extends React.Component<any> {
                    currentPage={this.props.currentPage}
                    follow={this.props.follow}
                    unFollow={this.props.unFollow}
+                   isFollowStatusChanging = {this.props.isFollowStatusChanging}
+                   toggleIsFollowStatusChanging = {this.props.toggleIsFollowStatusChanging}
                    onPaginationClickHandler={this.onPaginationClickHandler}
                    users={this.props.users}/>
         </>
@@ -54,10 +58,11 @@ const mapStateToProps = (state: _stateType) => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
+        isFollowStatusChanging: state.usersPage.isFollowStatusChanging,
     }
 }
 
 const UsersContainer = connect (mapStateToProps, {follow, unFollow, setUsers,
-    setCurrentPage, setTotalUsersQuantity, toggleIsFetching})(UsersAPIContainer)
+    setCurrentPage, setTotalUsersQuantity, toggleIsFetching, toggleIsFollowStatusChanging})(UsersAPIContainer)
 
 export default UsersContainer

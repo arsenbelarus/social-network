@@ -21,6 +21,9 @@ function ProfileInfo(props: propsType) {
             <div className={s.description}>
                 {props.profile.fullName}
             </div>
+            <div className={s.description}>
+                {props.profile.contacts.facebook}
+            </div>
         </div>
     )
 }
