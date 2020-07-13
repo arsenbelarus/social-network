@@ -13,3 +13,14 @@
     margin: 0;
     padding: 0;
 }
+
+.loginBlock {
+    float: right;
+    padding-right: 1rem;
+    padding-top: 1rem;
+}
+
+.loginBlock a {
+    color: white;
+    text-decoration: none;
+}

@@ -1,3 +1,11 @@
+//AUTHENTICATION TYPES
+export type authType = {
+    id: number|null,
+    email: string|null,
+    login: string|null,
+    isAuth: boolean,
+}
+
 // PROFILE PAGE TYPES
 export type contactsType = {
     facebook: string|null, website: string|null, vk: string|null, twitter: string|null,
@@ -24,5 +32,5 @@ export type usersPageType = { users: Array<usersType>, pageSize: number, totalUs
 export type friendsType = { name: string, imgSource: string }
 
 // MAIN STATE TYPE
-export type _stateType = { profilePage: profilePageType, messagesPage: messagesPageType, usersPage: usersPageType, friends: friendsType[] }
+export type _stateType = { profilePage: profilePageType, messagesPage: messagesPageType, usersPage: usersPageType, friends: friendsType[], auth: authType }
 

@@ -2,7 +2,7 @@ import {profilePageType, profileType} from "./Types";
 
 const addPost = "ADD-POST";
 const updateNewPostText = "UPDATE-NEW-POST-TEXT";
-const SET_USER_PROFILE = "SET_USER_PROFILE";
+const SET_USERS_PROFILE = "SET_USERS_PROFILE";
 
 
 let initialState = {
@@ -54,10 +54,10 @@ const profileReducer = (state: profilePageType = initialState, action: any) => {
                     newPostText: action.newText,
                 }
             }
-        case SET_USER_PROFILE:
+        case SET_USERS_PROFILE:
             return {
                 ...state,
-
+                profile: action.profile
             }
         default:
             return state;
@@ -70,7 +70,7 @@ export const addPostActionCreator = () => {
 export const updateNewPostTextActionCreator = (newText: string) => {
     return { type: updateNewPostText, newText: newText }
 }
-export const setUsersProfile = (profile: profileType) => ({type: SET_USER_PROFILE, profile})
+export const setUsersProfile = (profile: profileType) => ({type: SET_USERS_PROFILE, profile})
 
 
 export default profileReducer;
