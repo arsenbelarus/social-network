@@ -30,7 +30,7 @@ const Users = (props: UsersPropsType) => {
         <div>
             <div className={s.pagination}>
                 {pages.map(p =>
-                    <span className={(props.currentPage === p) && s.selectedPage} style={{cursor: "pointer"}}
+                    <span className={(props.currentPage === p) ? s.selectedPage : ""} style={{cursor: "pointer"}}
                           onClick={() => {
                               props.onPaginationClickHandler(p)
                           }}> {p} </span>
@@ -47,24 +47,8 @@ const Users = (props: UsersPropsType) => {
                             </div>
                             <div className={s.button}>
                                 {u.followed
-                                    ? <button disabled={props.isFollowStatusChanging.some(id => id === u.id)} onClick={() => {
-                                        props.toggleIsFollowStatusChanging(true, u.id)
-                                        userApi.unFollow(u.id).then(data => {
-                                            if (data.resultCode === 0) {
-                                                props.unFollow(u.id)
-                                            }
-                                            props.toggleIsFollowStatusChanging(false, u.id)
-                                        });
-                                    }}>UnFollow</button>
-                                    : <button disabled={props.isFollowStatusChanging.some(id => id === u.id)} onClick={() => {
-                                        props.toggleIsFollowStatusChanging(true, u.id)
-                                        userApi.follow(u.id).then(data => {
-                                            if (data.resultCode === 0) {
-                                                props.follow(u.id)
-                                            }
-                                            props.toggleIsFollowStatusChanging(false, u.id)
-                                        });
-                                    }}>Follow</button>}
+                                    ? <button disabled={props.isFollowStatusChanging.some(id => id === u.id)} onClick={() => props.unFollow(u.id)}>UnFollow</button>
+                                    : <button disabled={props.isFollowStatusChanging.some(id => id === u.id)} onClick={() => props.follow(u.id)}>Follow</button>}
                             </div>
                         </div>
                         <span>

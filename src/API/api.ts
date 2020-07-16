@@ -25,6 +25,9 @@ export const userApi = {
         return axiosInstance.delete(`follow/${userId}`)
             .then(response => response.data)
     },
+    getProfile (userId: number) {
+        return axiosInstance.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+    },
 }
 
 

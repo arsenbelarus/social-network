@@ -3,13 +3,16 @@ import s from './Profile.module.css';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {profileType} from "../../Redux/Types";
+import { Redirect } from 'react-router-dom';
 
 type propsType = {
-    /*props: Readonly<{}> & Readonly<{children?: React.ReactNode}>*/
-    profile: profileType
+    profile: profileType,
+    isAuth: boolean,
 }
 
 function Profile(props: propsType) {
+
+    if(!props.isAuth) {return <Redirect to={"/login"}/>}
 
     return (
         <div className={s.content}>

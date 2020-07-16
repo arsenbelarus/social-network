@@ -10,6 +10,7 @@ import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
+import Login from "./Components/Login/Login";
 
 type propsType = {
     stateForFriends: friendsType[],
@@ -30,6 +31,7 @@ function App(props: propsType) {
                     <Route path='/music' render={() => <News />}/>
                     <Route path='/settings' render={() => <Settings />}/>
                     <Route path='/users' render={() => <UsersContainer /> }/>
+                    <Route path='/login' render={() => <Login /> }/>
                 </div>
             </div>
         </BrowserRouter>
