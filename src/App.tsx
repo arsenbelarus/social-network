@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, HashRouter, Route} from "react-router-dom";
 import './App.css';
 import Navbar from "./Components/Navbar/Navbar";
 import Music from "./Components/Music/Music";
@@ -20,21 +20,21 @@ type propsType = {
 function App(props: propsType) {
 
     return (
-        <BrowserRouter>
+        <HashRouter>
             <div className={"app-wrapper"}>
                 <HeaderContainer/>
-                <Navbar friends = {props.stateForFriends}/>
+                <Navbar friends={props.stateForFriends}/>
                 <div className={"app-wrapper-content"}>
-                    <Route path='/profile/:userId?' render={() => <ProfileContainer />}/>
-                    <Route path='/dialogs' render={() => <DialogsContainer />}/>
-                    <Route path='/news' render={() => <Music />}/>
-                    <Route path='/music' render={() => <News />}/>
-                    <Route path='/settings' render={() => <Settings />}/>
-                    <Route path='/users' render={() => <UsersContainer /> }/>
-                    <Route path='/login' render={() => <Login /> }/>
+                    <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
+                    <Route path='/dialogs' render={() => <DialogsContainer/>}/>
+                    <Route path='/news' render={() => <Music/>}/>
+                    <Route path='/music' render={() => <News/>}/>
+                    <Route path='/settings' render={() => <Settings/>}/>
+                    <Route path='/users' render={() => <UsersContainer/>}/>
+                    <Route path='/login' render={() => <Login/>}/>
                 </div>
             </div>
-        </BrowserRouter>
+        </HashRouter>
     );
 }
 
