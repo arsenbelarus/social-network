@@ -9,7 +9,6 @@ import { Redirect } from 'react-router-dom';
 type propsType = {
     messages: messagesPageType,
     newMessageText: string,
-    isAuth: boolean,
     updateNewMessageText: (newMessage: string) => void,
     addMessage: () => void,
 }
@@ -32,8 +31,6 @@ function Dialogs(props: propsType) {
             props.updateNewMessageText(newMessage)
         }
     }
-
-    if(!props.isAuth) {return <Redirect to={"/login"}/>}
 
     return (
         <div className={s.dialogs}>
