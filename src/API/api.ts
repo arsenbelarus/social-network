@@ -26,8 +26,21 @@ export const userApi = {
             .then(response => response.data)
     },
     getProfile (userId: number) {
-        return axiosInstance.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+        console.log("Obsolete method. Please use profileApi")
+        return profileApi.getProfile(userId)
     },
+}
+
+export const profileApi = {
+    getProfile (userId: number) {
+        return axiosInstance.get(`profile/${userId}`)
+    },
+    getStatus (userId: number) {
+        return axiosInstance.get(`profile/status/${userId}`)
+    },
+    updateStatus (status: string) {
+        return axiosInstance.put("profile/status", {status: status})
+    }
 }
 
 

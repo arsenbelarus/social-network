@@ -1,11 +1,9 @@
 import React from 'react';
 import s from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
-import Friends from "./Friends/Friends";
-import {friendsType} from "../../Redux/Types";
 
 type propsType = {
-    friends:  friendsType[],
+
 }
 function Navbar(props: propsType) {
     return (
@@ -30,7 +28,6 @@ function Navbar(props: propsType) {
                     <NavLink to={"/settings"} activeClassName={s.activeLink}> Settings</NavLink>
                 </div>
             </nav>
-            <Friends friends = {props.friends}/>
         </div>
     )
 }

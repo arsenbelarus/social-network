@@ -3,17 +3,18 @@ import s from './Profile.module.css';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {profileType} from "../../Redux/Types";
-import { Redirect } from 'react-router-dom';
 
 type propsType = {
     profile: profileType,
+    status: string,
+    update: (status: string) => void,
 }
 
 function Profile(props: propsType) {
 
     return (
-        <div className={s.content}>
-            <ProfileInfo profile={props.profile}/>
+        <div >
+            <ProfileInfo profile={props.profile} status={props.status} update={props.update}/>
             <MyPostsContainer />
         </div>
     )

@@ -51,7 +51,7 @@ const Users = (props: UsersPropsType) => {
                                     : <button disabled={props.isFollowStatusChanging.some(id => id === u.id)} onClick={() => props.follow(u.id)}>Follow</button>}
                             </div>
                         </div>
-                        <span>
+                        <span className={s.userInformation}>
                             <span>
                                 <div>{u.name}</div>
                                 <div>{u.status}</div>

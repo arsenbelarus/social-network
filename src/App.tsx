@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, HashRouter, Route} from "react-router-dom";
+import {BrowserRouter, Route} from "react-router-dom";
 import './App.css';
 import Navbar from "./Components/Navbar/Navbar";
 import Music from "./Components/Music/Music";
@@ -11,6 +11,7 @@ import UsersContainer from "./Components/Users/UsersContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
 import Login from "./Components/Login/Login";
+import Friends from "./Components/Friends/Friends";
 
 type propsType = {
     stateForFriends: friendsType[],
@@ -20,10 +21,10 @@ type propsType = {
 function App(props: propsType) {
 
     return (
-        <HashRouter>
+        <BrowserRouter>
             <div className={"app-wrapper"}>
                 <HeaderContainer/>
-                <Navbar friends={props.stateForFriends}/>
+                <Navbar/>
                 <div className={"app-wrapper-content"}>
                     <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
                     <Route path='/dialogs' render={() => <DialogsContainer/>}/>
@@ -33,8 +34,11 @@ function App(props: propsType) {
                     <Route path='/users' render={() => <UsersContainer/>}/>
                     <Route path='/login' render={() => <Login/>}/>
                 </div>
+                <div style={{gridArea: "r", backgroundColor: "black"}}>
+                    <Friends friends = {props.stateForFriends}/>
+                </div>
             </div>
-        </HashRouter>
+        </BrowserRouter>
     );
 }
 

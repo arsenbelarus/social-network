@@ -16,7 +16,7 @@ export type profileType = {
     lookingForAJobDescription: string | null, fullName: string | null, userId: number, photos: photosType,
 }
 export type postsDataType = Array<{ id: number, message: string, likesCount: number }>
-export type profilePageType = { profile: profileType, postsData: postsDataType, newPostText: string }
+export type profilePageType = { profile: profileType, status: string, postsData: postsDataType, newPostText: string }
 
 // DIALOGS PAGE TYPES
 export type dialogsDataType = { id: number, name: string }
