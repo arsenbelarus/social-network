@@ -3,7 +3,6 @@ import {profileApi, userApi} from "../API/api";
 import {strict} from "assert";
 
 const addPost = "ADD-POST";
-const updateNewPostText = "UPDATE-NEW-POST-TEXT";
 const SET_USERS_PROFILE = "SET_USERS_PROFILE";
 const SET_USER_STATUS = "SET_USER_STATUS";
 
@@ -44,19 +43,10 @@ const profileReducer = (state: profilePageType = initialState, action: any) => {
 
     switch (action.type) {
         case addPost:
-            let newPost = {id: 5, message: state.newPostText, likesCount: 0}
+            let newPost = {id: 5, message: action.addNewPost, likesCount: 0}
             return {
                 ...state,
                 postsData: [...state.postsData, newPost],
-                newPostText: "",
-            }
-
-        case updateNewPostText:
-            if (action.newText) {
-                return {
-                    ...state,
-                    newPostText: action.newText,
-                }
             }
         case SET_USERS_PROFILE:
             return {
@@ -73,11 +63,8 @@ const profileReducer = (state: profilePageType = initialState, action: any) => {
     }
 }
 
-export const addPostActionCreator = () => {
-    return {type: addPost}
-}
-export const updateNewPostTextActionCreator = (newText: string) => {
-    return {type: updateNewPostText, newText: newText}
+export const addPostActionCreator = (addNewPost: any) => {
+    return {type: addPost, addNewPost}
 }
 const setUsersProfile = (profile: profileType) => ({type: SET_USERS_PROFILE, profile})
 const setUserStatus = (status: string) => ({type: SET_USER_STATUS, status})

@@ -43,4 +43,10 @@ export const profileApi = {
     }
 }
 
+export const loginApi = {
+    signIn (data: {email: string, password: string|number, rememberMe?: boolean, captcha?: boolean} ) {
+        return axiosInstance.post("auth/login", data)
+    }
+}
+
 

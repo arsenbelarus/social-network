@@ -1,12 +1,18 @@
 import React from "react";
+import {LoginReduxForm} from "./LoginForm";
 
-type loginType = {
-
-}
+type loginType = {}
 
 const Login = (props: loginType) => {
+    const onSubmit = (formData: any) => {
+        console.log(formData)
+    }
     return (
-        <h1>LOGIN</h1>
+        <div>
+            <h1>LOGIN</h1>
+            <LoginReduxForm onSubmit={onSubmit}/>
+        </div>
+
     )
 }
 

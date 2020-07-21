@@ -1,14 +1,8 @@
 import {messagesPageType} from "./Types";
 
 const addMessage = "ADD-MESSAGE";
-const updateNewMessageText = "UPDATE-NEW-MESSAGE-TEXT";
 
-export const addMessageActionCreator = () => {
-    return {type: addMessage}
-}
-export const updateNewMessageTextActionCreator = (newMessage: string) => {
-    return {type: updateNewMessageText, newMessage: newMessage}
-}
+export const addMessageActionCreator = (newMessageBody: string) => {return {type: addMessage, newMessageBody}}
 
 let initialState = {
     dialogsData: [
@@ -34,17 +28,11 @@ let initialState = {
 
 const messageReducer = (state: messagesPageType = initialState, action: any) => {
     switch (action.type) {
-        case updateNewMessageText:
-            return {
-                ...state,
-                newMessageText: action.newMessage,
-            }
         case addMessage:
-            let newMessage = {id: 5, message: state.newMessageText,}
+            let newMessage = {id: 5, message: action.newMessageBody,}
             return {
                 ...state,
                 messagesDataLeft: [...state.messagesDataLeft, newMessage],
-                newMessageText: "",
             }
         default:
             return state;

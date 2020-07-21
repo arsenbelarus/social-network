@@ -1,16 +1,15 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import s from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./MessageItem/Message";
-import {addMessageActionCreator, updateNewMessageTextActionCreator,} from "../../Redux/messageReducer";
 import {messagesPageType} from "../../Redux/Types";
-import { Redirect } from 'react-router-dom';
+import {AddMessageReduxForm} from "./AddMessageForm";
 
 type propsType = {
     messages: messagesPageType,
     newMessageText: string,
     updateNewMessageText: (newMessage: string) => void,
-    addMessage: () => void,
+    addMessage: (newMessageBody: string) => void,
 }
 
 function Dialogs(props: propsType) {
@@ -19,17 +18,12 @@ function Dialogs(props: propsType) {
     let messageElementsLeft = props.messages.messagesDataLeft.map((m: { message: string; }) => <Message message={m.message}/>)
     let messageElementsRight = props.messages.messagesDataRight.map((m: { message: string; }) => <Message message={m.message}/>)
 
-    let newMessageBody = props.newMessageText
-
-    const addMessage = () => {
-        props.addMessage()
+    const addMessage = (newMessageBody: string) => {
+        props.addMessage(newMessageBody)
     }
 
-    const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let newMessage = e.target.value;
-        if (newMessage) {
-            props.updateNewMessageText(newMessage)
-        }
+    const onSubmit = (values: any) => {
+        addMessage(values.newMessageBody)
     }
 
     return (
@@ -41,12 +35,7 @@ function Dialogs(props: propsType) {
                 <div className={s.messagesRow}>
                     <div className={s.messagesCell1}>
                         {messageElementsLeft}
-                        <div>
-                            <textarea value={newMessageBody} onChange={onChangeHandler}/>
-                        </div>
-                        <div>
-                            <button onClick={addMessage}> Add message </button>
-                        </div>
+                        <AddMessageReduxForm onSubmit={onSubmit}/>
                     </div>
                     <div className={s.messagesCell2}>
                         {messageElementsRight}
