@@ -1,5 +1,6 @@
 import {authType} from "./Types";
 import {loginApi, userApi} from "../API/api";
+import {FormAction, stopSubmit} from "redux-form";
 
 
 const SET_USER_DATA = "SET_USER_DATA";
@@ -30,7 +31,8 @@ export const setUserData = (id: number|null, email: string|null, login: string|n
 
 export const checkAuth = () => {
    return (dispatch: any) => {
-        userApi.checkAuth().then(data => {
+       return userApi.checkAuth()
+           .then(data => {
             if (data.resultCode === 0) {
                 let {id, login, email} = data.data
                 dispatch (setUserData (id, email, login, true))
@@ -45,6 +47,9 @@ export const login = (email: string, password: string|number, rememberMe: boolea
             .then(data => {
             if (data.data.resultCode === 0) {
                 dispatch (checkAuth())
+            } else {
+                let formErrorMessage = data.data.messages.length > 0 ? data.data.messages : "Error occurred";
+                dispatch(stopSubmit("login", {_error: `${formErrorMessage}`}))
             }
         });
     }

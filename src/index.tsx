@@ -9,7 +9,7 @@ import {Provider} from 'react-redux';
 
 ReactDOM.render(
     <Provider store={store}>
-        <App stateForFriends={store.getState().friends}/>
+        <App />
     </Provider>, document.getElementById('root'));
 
 

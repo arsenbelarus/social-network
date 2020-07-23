@@ -8,27 +8,7 @@ const SET_USER_STATUS = "SET_USER_STATUS";
 
 
 let initialState = {
-    profile: {
-        aboutMe: "я круто чувак 1001%",
-        contacts: {
-            facebook: "facebook.com",
-            website: null,
-            vk: "vk.com/dimych",
-            twitter: "https://twitter.com/@sdf",
-            instagram: "instagra.com/sds",
-            youtube: null,
-            github: "github.com",
-            mainLink: null
-        },
-        lookingForAJob: true,
-        lookingForAJobDescription: "не ищу, а дурачусь",
-        fullName: "samurai dimych",
-        userId: 2,
-        photos: {
-            small: "https://social-network.samuraijs.com/activecontent/images/users/2/user-small.jpg?v=0",
-            large: "https://social-network.samuraijs.com/activecontent/images/users/2/user.jpg?v=0"
-        }
-    },
+    profile: null,
     status: "",
     postsData: [
         {id: 1, message: "How are you?", likesCount: 15},
@@ -36,7 +16,6 @@ let initialState = {
         {id: 3, message: "I want to learn React", likesCount: 35},
         {id: 4, message: "Lorem ipsum", likesCount: 1},
     ],
-    newPostText: ""
 }
 
 const profileReducer = (state: profilePageType = initialState, action: any) => {

@@ -1,3 +1,9 @@
+//APP TYPES
+
+export type appType = {
+    initialised: boolean
+}
+
 //AUTHENTICATION TYPES
 export type authType = {
     id: number | null,
@@ -16,7 +22,7 @@ export type profileType = {
     lookingForAJobDescription: string | null, fullName: string | null, userId: number, photos: photosType,
 }
 export type postsDataType = Array<{ id: number, message: string, likesCount: number }>
-export type profilePageType = { profile: profileType, status: string, postsData: postsDataType, newPostText: string }
+export type profilePageType = { profile: profileType|null, status: string, postsData: postsDataType}
 
 // DIALOGS PAGE TYPES
 export type dialogsDataType = { id: number, name: string }
@@ -35,5 +41,6 @@ export type usersPageType = {
 export type friendsType = { name: string, imgSource: string }
 
 // MAIN STATE TYPE
-export type _stateType = { profilePage: profilePageType, messagesPage: messagesPageType, usersPage: usersPageType, friends: friendsType[], auth: authType }
+export type _stateType = { profilePage: profilePageType, messagesPage: messagesPageType, usersPage: usersPageType,
+    friends: friendsType[], auth: authType, app: appType }
 

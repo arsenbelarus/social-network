@@ -29,8 +29,8 @@ const Users = (props: UsersPropsType) => {
     return (
         <div>
             <div className={s.pagination}>
-                {pages.map(p =>
-                    <span className={(props.currentPage === p) ? s.selectedPage : ""} style={{cursor: "pointer"}}
+                {pages.map((p, index) =>
+                    <span key={index} className={(props.currentPage === p) ? s.selectedPage : ""} style={{cursor: "pointer"}}
                           onClick={() => {
                               props.onPaginationClickHandler(p)
                           }}> {p} </span>

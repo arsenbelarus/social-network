@@ -7,9 +7,9 @@ type propsType = {
 }
 function Friends(props: propsType) {
 
-    let friendsElements = props.friends.map((f: { name: string; imgSource: string; }) =>
-        <div className={s.friend}>
-            <img src={f.imgSource}/>
+    let friendsElements = props.friends.map((f: { name: string; imgSource: string; }, index) =>
+        <div className={s.friend} key={index}>
+            <img src={f.imgSource} alt={""}/>
             <div className={s.friendName}>
                 {f.name}
             </div>
