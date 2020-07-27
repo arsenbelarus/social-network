@@ -10,6 +10,12 @@ import {
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
 import {compose} from "redux";
+import {
+    getCurrentPageSelector, getIsFetchingSelector, getIsFollowStatusChangingSelector,
+    getPageSizeSelector,
+    getTotalUsersCountSelector,
+    getUsersSelector
+} from "../../Redux/user-selector";
 
 
 class UsersContainer extends React.Component<any> {
@@ -42,7 +48,7 @@ class UsersContainer extends React.Component<any> {
     }
 }
 
-const mapStateToProps = (state: _stateType) => {
+/*const mapStateToProps = (state: _stateType) => {
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
@@ -50,6 +56,17 @@ const mapStateToProps = (state: _stateType) => {
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
         isFollowStatusChanging: state.usersPage.isFollowStatusChanging,
+    }
+}*/
+
+const mapStateToProps = (state: _stateType) => {
+    return {
+        users: getUsersSelector(state),
+        pageSize: getPageSizeSelector(state),
+        totalUsersCount: getTotalUsersCountSelector(state),
+        currentPage: getCurrentPageSelector(state),
+        isFetching: getIsFetchingSelector(state),
+        isFollowStatusChanging: getIsFollowStatusChangingSelector(state),
     }
 }
 

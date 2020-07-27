@@ -10,8 +10,8 @@ type propsType = {
 
 
 
-function MyPosts (props: propsType) {
-    let postElements = props.posts.map(p => <Post message ={p.message} likesCount = {p.likesCount} />)
+const MyPosts = React.memo((props: propsType) => {
+    let postElements = props.posts.map((p,i) => <Post key={i} message ={p.message} likesCount = {p.likesCount} />)
 
     const addPost = (addNewPost: string) => {
         props.addPost(addNewPost);
@@ -28,6 +28,6 @@ function MyPosts (props: propsType) {
             <div className={s.posts}>  {postElements}  </div>
         </div>
     )
-}
+})
 
 export default MyPosts

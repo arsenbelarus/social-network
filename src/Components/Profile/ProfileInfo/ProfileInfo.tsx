@@ -2,6 +2,7 @@ import React from 'react';
 import s from './ProfileInfo.module.css';
 import {profileType} from "../../../Redux/Types";
 import ProfileStatus from "./ProfileStatus";
+import ProfileStatusWithHooks from "./ProfileStatusWtihHooks";
 
 
 type propsType = {
@@ -11,7 +12,6 @@ type propsType = {
 }
 
 function ProfileInfo(props: propsType) {
-    debugger
     return (
 
         <div>
@@ -26,7 +26,7 @@ function ProfileInfo(props: propsType) {
                     <div className={s.description}>
                         {props.profile.contacts.facebook}
                     </div>
-                    <ProfileStatus profile={props.profile} status={props.status} update={props.update}/>
+                    <ProfileStatusWithHooks profile={props.profile} status={props.status} update={props.update}/>
                 </div>
             }
 
