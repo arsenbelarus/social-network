@@ -4,19 +4,6 @@
     border-radius: 50%;
 }
 
-.selectedPage {
-    font-weight: bold;
-    color: maroon;
-    font-size: 1.5rem;
-}
-
-.pagination {
-    width: 80%;
-    margin: 2rem auto;
-    text-align: center;
-    padding: 1rem 0;
-}
-
 .userContainer {
     display: flex;
     margin: 2rem auto;

@@ -4,6 +4,7 @@ import {usersType} from "../../Redux/Types";
 import avatarLogo from "../../Assets/Images/avatar.jpg"
 import {NavLink} from "react-router-dom";
 import {userApi} from "../../API/api";
+import Paginator from "../Common/Paginator/Paginator";
 
 type UsersPropsType = {
     totalUsersCount: number;
@@ -19,23 +20,10 @@ type UsersPropsType = {
 
 const Users = (props: UsersPropsType) => {
 
-    let pagesNumber = Math.ceil(props.totalUsersCount / props.pageSize)
-
-    let pages = []
-    for (let i = 1; i <= pagesNumber; i++) {
-        pages.push(i)
-    }
-
     return (
         <div>
-            <div className={s.pagination}>
-                {pages.map((p, index) =>
-                    <span key={index} className={(props.currentPage === p) ? s.selectedPage : ""} style={{cursor: "pointer"}}
-                          onClick={() => {
-                              props.onPaginationClickHandler(p)
-                          }}> {p} </span>
-                )}
-            </div>
+            <Paginator totalUsersCount={props.totalUsersCount} pageSize={props.pageSize}
+                       currentPage={props.currentPage} onPaginationClickHandler={props.onPaginationClickHandler}/>
             {
                 props.users.map((u: usersType) =>
                     <div key={u.id} className={s.userContainer}>
@@ -55,10 +43,6 @@ const Users = (props: UsersPropsType) => {
                             <span>
                                 <div>{u.name}</div>
                                 <div>{u.status}</div>
-                            </span>
-                            <span>
-                                <div>{"u.location.country"}</div>
-                                <div>{"u.location.city"}</div>
                             </span>
                         </span>
                     </div>

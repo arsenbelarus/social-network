@@ -5,6 +5,7 @@ import {strict} from "assert";
 const addPost = "ADD-POST";
 const SET_USERS_PROFILE = "SET_USERS_PROFILE";
 const SET_USER_STATUS = "SET_USER_STATUS";
+const DELETE_POST = "DELETE_POST";
 
 
 let initialState = {
@@ -27,6 +28,11 @@ const profileReducer = (state: profilePageType = initialState, action: any) => {
                 ...state,
                 postsData: [...state.postsData, newPost],
             }
+        case DELETE_POST:
+            return {
+                ...state,
+                postsData: state.postsData.filter(p => p.id !== action.id),
+            }
         case SET_USERS_PROFILE:
             return {
                 ...state,
@@ -42,18 +48,18 @@ const profileReducer = (state: profilePageType = initialState, action: any) => {
     }
 }
 
-export const addPostActionCreator = (addNewPost: any) => {
+export const addPostActionCreator = (addNewPost: string) => {
     return {type: addPost, addNewPost}
+}
+export const deletePostActionCreator = (id: number) => {
+    return {type: DELETE_POST, id}
 }
 const setUsersProfile = (profile: profileType) => ({type: SET_USERS_PROFILE, profile})
 const setUserStatus = (status: string) => ({type: SET_USER_STATUS, status})
 
-export const getUserProfile = (userId: number) => {
-    return (dispatch: any) => {
-        userApi.getProfile(userId).then(response => {
-            dispatch(setUsersProfile(response.data))
-        });
-    }
+export const getUserProfile = (userId: number) => async (dispatch: any) => {
+    const response = await userApi.getProfile(userId)
+    dispatch(setUsersProfile(response.data))
 }
 
 export const getUserStatus = (userId: number) => {

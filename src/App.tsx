@@ -1,5 +1,5 @@
 import React from 'react';
-import {HashRouter, Route} from "react-router-dom";
+import {Route} from "react-router-dom";
 import './App.css';
 import Navbar from "./Components/Navbar/Navbar";
 import Music from "./Components/Music/Music";
@@ -23,28 +23,28 @@ class App extends React.Component<any, any> {
     }
 
     render() {
-        if(!this.props.initialised){
+        if (!this.props.initialised) {
             return <Preloader/>
         }
         return (
-            <HashRouter>
-                <div className={"app-wrapper"}>
-                    <HeaderContainer/>
-                    <Navbar/>
-                    <div className={"app-wrapper-content"}>
-                        <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
-                        <Route path='/dialogs' render={() => <DialogsContainer/>}/>
-                        <Route path='/news' render={() => <Music/>}/>
-                        <Route path='/music' render={() => <News/>}/>
-                        <Route path='/settings' render={() => <Settings/>}/>
-                        <Route path='/users' render={() => <UsersContainer/>}/>
-                        <Route path='/login' render={() => <Login/>}/>
-                    </div>
-                    <div style={{gridArea: "r", backgroundColor: "black"}}>
-                        <Friends friends={this.props.stateForFriends}/>
-                    </div>
+
+            <div className={"app-wrapper"}>
+                <HeaderContainer/>
+                <Navbar/>
+                <div className={"app-wrapper-content"}>
+                    <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
+                    <Route path='/dialogs' render={() => <DialogsContainer/>}/>
+                    <Route path='/news' render={() => <Music/>}/>
+                    <Route path='/music' render={() => <News/>}/>
+                    <Route path='/settings' render={() => <Settings/>}/>
+                    <Route path='/users' render={() => <UsersContainer/>}/>
+                    <Route path='/login' render={() => <Login/>}/>
                 </div>
-            </HashRouter>
+                <div style={{gridArea: "r", backgroundColor: "black"}}>
+                    <Friends friends={this.props.stateForFriends}/>
+                </div>
+            </div>
+
         );
     }
 }

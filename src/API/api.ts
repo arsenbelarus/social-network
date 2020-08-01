@@ -29,6 +29,10 @@ export const userApi = {
         console.log("Obsolete method. Please use profileApi")
         return profileApi.getProfile(userId)
     },
+    getFriends (friends: boolean) {
+        return axiosInstance.get(`users?friend=${friends}`)
+            .then(response => response.data)
+    },
 }
 
 export const profileApi = {
