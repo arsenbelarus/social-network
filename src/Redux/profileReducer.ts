@@ -57,9 +57,13 @@ export const deletePostActionCreator = (id: number) => {
 const setUsersProfile = (profile: profileType) => ({type: SET_USERS_PROFILE, profile})
 const setUserStatus = (status: string) => ({type: SET_USER_STATUS, status})
 
-export const getUserProfile = (userId: number) => async (dispatch: any) => {
-    const response = await userApi.getProfile(userId)
-    dispatch(setUsersProfile(response.data))
+export const getUserProfile = (userId: number) => {
+    return (dispatch: any) => {
+        userApi.getProfile(userId)
+            .then(response => {
+                dispatch(setUsersProfile(response.data))
+            })
+    }
 }
 
 export const getUserStatus = (userId: number) => {
