@@ -119,7 +119,6 @@ export const unFollow = (userId: number) => {
     }
 }
 export const follow = (userId: number) => {
-    debugger
     return (dispatch: any) => {
         dispatch (toggleFollowStatusChanging(true, userId))
         userApi.follow(userId).then(data => {

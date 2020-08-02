@@ -38,9 +38,10 @@ export type usersPageType = {
 }
 
 // FRIENDS PAGE TYPES
-export type friendsType = { name: string, imgSource: string }
+export type friendsType = { name: string, id: number, uniqueUrlName: string, photos: photosType, status: string, followed: boolean }
+export type friendsPageType = {friends: Array<friendsType>}
 
 // MAIN STATE TYPE
 export type _stateType = { profilePage: profilePageType, messagesPage: messagesPageType, usersPage: usersPageType,
-    friends: friendsType[], auth: authType, app: appType }
+    friendsPage: friendsPageType, auth: authType, app: appType }
 

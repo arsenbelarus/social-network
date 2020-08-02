@@ -1,14 +1,35 @@
-import {friendsType} from "./Types";
+import {friendsPageType, friendsType} from "./Types";
+import {userApi} from "../API/api";
 
-let initialState = [
-    {name: "David", imgSource: "https://greendestinations.org/wp-content/uploads/2019/05/avatar-exemple.jpg"},
-    {name: "Tigran", imgSource: "https://freesvg.org/img/myAvatar.png"},
-    {name: "Olga", imgSource: "https://st2.depositphotos.com/2703645/5669/v/950/depositphotos_56695985-stock-illustration-male-avatar.jpg"},
-]
+const SET_FRIENDS = "SET_FRIENDS";
 
-const friendsReducer = (state: friendsType[] = initialState, action: any) => {
+let initialState: friendsPageType = {
+    friends: [],
+}
 
-    return state
+const friendsReducer = (state = initialState, action: any) => {
+    switch (action.type) {
+        case "SET_FRIENDS":
+            return {
+                ...state,
+                friends: action.friends
+            }
+        default:
+            return state
+    }
+}
+
+
+// Action creators
+export const setFriends = (friends: friendsType[]) => ({type: SET_FRIENDS, friends});
+
+// Thunk creators
+export const getFriends = () => {
+    return (dispatch: any) => {
+        userApi.getFriends(true).then(data => {
+            dispatch(setFriends(data.items));
+        });
+    }
 }
 
 export default friendsReducer;

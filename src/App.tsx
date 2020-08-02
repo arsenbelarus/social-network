@@ -11,10 +11,10 @@ import UsersContainer from "./Components/Users/UsersContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
 import Login from "./Components/Login/Login";
-import Friends from "./Components/Friends/Friends";
 import {connect} from "react-redux";
 import {initialiseApp} from "./Redux/appReducer";
 import Preloader from "./Components/Common/Preloader/Preloader";
+import FriendsContainer from "./Components/Friends/FriendsContainer";
 
 
 class App extends React.Component<any, any> {
@@ -41,7 +41,7 @@ class App extends React.Component<any, any> {
                     <Route path='/login' render={() => <Login/>}/>
                 </div>
                 <div style={{gridArea: "r", backgroundColor: "black"}}>
-                    <Friends friends={this.props.stateForFriends}/>
+                    <FriendsContainer/>
                 </div>
             </div>
 
@@ -50,7 +50,6 @@ class App extends React.Component<any, any> {
 }
 
 const mapStateToProps = (state: _stateType) => ({
-    stateForFriends: state.friends,
     initialised: state.app.initialised
 })
 

@@ -3,7 +3,6 @@ import s from "./Users.module.css"
 import {usersType} from "../../Redux/Types";
 import avatarLogo from "../../Assets/Images/avatar.jpg"
 import {NavLink} from "react-router-dom";
-import {userApi} from "../../API/api";
 import Paginator from "../Common/Paginator/Paginator";
 
 type UsersPropsType = {

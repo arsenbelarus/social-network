@@ -1,6 +1,7 @@
 import {authType} from "./Types";
 import {loginApi, userApi} from "../API/api";
-import {FormAction, stopSubmit} from "redux-form";
+import {stopSubmit} from "redux-form";
+import {getFriends, setFriends} from "./friendsReducer";
 
 
 const SET_USER_DATA = "SET_USER_DATA";
@@ -47,6 +48,7 @@ export const login = (email: string, password: string|number, rememberMe: boolea
             .then(data => {
             if (data.data.resultCode === 0) {
                 dispatch (checkAuth())
+                dispatch (getFriends())
             } else {
                 let formErrorMessage = data.data.messages.length > 0 ? data.data.messages : "Error occurred";
                 dispatch(stopSubmit("login", {_error: `${formErrorMessage}`}))
@@ -61,6 +63,7 @@ export const logout = () => {
             .then(data => {
             if (data.data. resultCode === 0) {
                 dispatch (setUserData (null, null, null, false))
+                dispatch (setFriends([]))
             }
         });
     }
