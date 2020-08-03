@@ -1,10 +1,9 @@
-import {profilePageType, profileType} from "./Types";
+import {photosType, profilePageType, profileType} from "./Types";
 import {profileApi, userApi} from "../API/api";
-import {strict} from "assert";
-
 const addPost = "ADD-POST";
 const SET_USERS_PROFILE = "SET_USERS_PROFILE";
 const SET_USER_STATUS = "SET_USER_STATUS";
+const SET_USER_PHOTO = "SET_USER_PHOTO";
 const DELETE_POST = "DELETE_POST";
 
 
@@ -43,6 +42,11 @@ const profileReducer = (state: profilePageType = initialState, action: any) => {
                 ...state,
                 status: action.status
             }
+        case SET_USER_PHOTO:
+            return {
+                ...state,
+                profile: {...state.profile, photos: action.photos}
+            }
         default:
             return state;
     }
@@ -56,6 +60,7 @@ export const deletePostActionCreator = (id: number) => {
 }
 const setUsersProfile = (profile: profileType) => ({type: SET_USERS_PROFILE, profile})
 const setUserStatus = (status: string) => ({type: SET_USER_STATUS, status})
+const setUserPhoto = (photos: photosType) => ({type: SET_USER_PHOTO, photos})
 
 export const getUserProfile = (userId: number) => {
     return (dispatch: any) => {
@@ -81,6 +86,17 @@ export const updateUserStatus = (status: string) => {
                 dispatch(setUserStatus(status))
             }
         });
+    }
+}
+
+export const savePhoto = (file: File) => {
+    return (dispatch: any) => {
+        profileApi.savePhoto(file)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(setUserPhoto(response.data.data.photos))
+                }
+            });
     }
 }
 
