@@ -7,6 +7,7 @@ type propsType = {
     profile: profileType,
     status: string,
     update: (status: string) => void,
+    isOwner: boolean
 }
 
 const ProfileStatusWithHooks = (props: propsType) => {
@@ -18,7 +19,11 @@ const ProfileStatusWithHooks = (props: propsType) => {
         setStatus(props.status)
     }, [props.status])
 
-    const activateEditMode = () => setEditMode(true)
+    const activateEditMode = () => {
+        if(props.isOwner) {
+            setEditMode(true)
+        }
+    }
     const activateViewMode = () => {
         setEditMode(false)
         props.update(status)
@@ -29,7 +34,7 @@ const ProfileStatusWithHooks = (props: propsType) => {
         <>
             {!editMode &&
             <div className={s.description}>
-                <span onDoubleClick={activateEditMode}>{props.status}</span>
+                <span onDoubleClick={activateEditMode}><strong>Status: </strong>{props.status}</span>
             </div>
             }
             {editMode &&

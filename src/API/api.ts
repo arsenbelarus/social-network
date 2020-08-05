@@ -1,4 +1,5 @@
 import axios from "axios";
+import {profileType} from "../Redux/Types";
 
 const axiosInstance = axios.create({
     withCredentials: true,
@@ -45,6 +46,9 @@ export const profileApi = {
     updateStatus (status: string) {
         return axiosInstance.put("profile/status", {status: status})
     },
+    updateProfileData (profile: profileType) {
+        return axiosInstance.put("profile", profile)
+    },
     savePhoto (photo: File) {
         const formData = new FormData()
         formData.append("image", photo)
@@ -57,11 +61,17 @@ export const profileApi = {
 }
 
 export const loginApi = {
-    signIn (data: {email: string, password: string|number, rememberMe?: boolean, captcha?: boolean} ) {
+    signIn(data: { password: string | number; captcha: string | null; rememberMe: boolean; email: string }) {
         return axiosInstance.post("auth/login", data)
     },
     signOut () {
         return axiosInstance.delete("auth/login")
+    }
+}
+
+export const securityApi = {
+    getCaptchaUrl () {
+        return axiosInstance.get("security/get-captcha-url")
     }
 }
 

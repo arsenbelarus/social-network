@@ -1,8 +1,10 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import s from './ProfileInfo.module.css';
 import {profileType} from "../../../Redux/Types";
 import avatarLogo from "../../../Assets/Images/avatar.jpg"
 import ProfileStatusWithHooks from "./ProfileStatusWtihHooks";
+import ProfileData from "./ProfileData";
+import {ProfileDataReduxForm} from "./ProfileDataForm";
 
 
 type propsType = {
@@ -11,33 +13,45 @@ type propsType = {
     update: (status: string) => void,
     isOwner: boolean,
     savePhoto: (e: File) => void,
+    updateProfileData: (profile: profileType) => Promise<any>,
 }
 
-function ProfileInfo(props: propsType) {
+const ProfileInfo: React.FC<propsType> = ({profile, status, update, isOwner, savePhoto, updateProfileData}) => {
 
     const photoUploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
-            props.savePhoto (e.target.files[0])
+            savePhoto(e.target.files[0])
         }
+    }
+
+    const [editMode, setEditMode] = useState(false)
+
+    const onSubmit = (formData: profileType) => {
+        updateProfileData(formData).then(
+            () => setEditMode(false)
+        )
     }
 
     return (
 
         <div>
-            {props.profile &&
-                <div>
-                    <div className={s.description}>
-                        <img src={props.profile.photos.large || avatarLogo} alt="large avatar"/>
-                        {props.isOwner && <input type={"file"} onChange={photoUploadHandler}/>}
-                    </div>
-                    <div className={s.description}>
-                        {props.profile.fullName}
-                    </div>
-                    <div className={s.description}>
-                        {props.profile.contacts.facebook}
-                    </div>
-                    <ProfileStatusWithHooks profile={props.profile} status={props.status} update={props.update}/>
+            {profile &&
+            <div>
+                <div className={s.description}>
+                    <img src={profile.photos.large || avatarLogo} alt="large avatar"/>
+                    {isOwner && <input type={"file"} onChange={photoUploadHandler}/>}
                 </div>
+                {
+                    editMode
+                        ? <ProfileDataReduxForm initialValues={profile} onSubmit={onSubmit}
+                                                profile={profile}/>
+                        : <ProfileData isOwner={isOwner}
+                                       profile={profile}
+                                       activateEditMode={() => setEditMode(true)}/>
+                }
+                <ProfileStatusWithHooks profile={profile} status={status}
+                                        update={update} isOwner={isOwner}/>
+            </div>
             }
 
         </div>

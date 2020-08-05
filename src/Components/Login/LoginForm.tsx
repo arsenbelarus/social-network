@@ -1,20 +1,19 @@
 import React from "react";
-import {Field, reduxForm} from 'redux-form'
+import {Field, InjectedFormProps, reduxForm} from 'redux-form'
 import {Input} from "../Common/FormControls/FormControls";
 import {maxLength, requiredField} from "../../Utils/Validation/validators";
 import s from "../Common/FormControls/FormControls.module.css"
 
 type loginFormType = {
-    handleSubmit: any;
-    error: string;
+    captchaUrl: string | null
 }
 
 const maxLength10 = maxLength(10);
 const maxLength50 = maxLength(50);
 
-let LoginForm = (props: loginFormType) => {
+let LoginForm: React.FC<InjectedFormProps<any, loginFormType> & loginFormType> = ({handleSubmit, error, captchaUrl}) => {
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
                 <Field type={"text"} name={"email"} component={Input} placeholder={"email"}
                        validate={[requiredField, maxLength50]}/>
@@ -26,10 +25,24 @@ let LoginForm = (props: loginFormType) => {
             <div style={{display: "inline-flex"}}>
                 <Field type={"checkbox"} name={"rememberMe"} component={Input}/> <span>remember me</span>
             </div>
-            {props.error &&
+            {
+                captchaUrl &&
+                <div> <img src={captchaUrl} alt="Captcha"/> </div>
+            }
+            {
+                captchaUrl &&
+                <div>
+                    <Field type={"text"} name={"captcha"} component={Input}
+                           placeholder={"Type antibot symbols"}
+                           validate={[requiredField]}/>
+                </div>
+            }
+            {
+                error &&
             <div className={s.formSummaryError}>
-                {props.error}
-            </div>}
+                {error}
+            </div>
+            }
             <div>
                 <button>Sign in</button>
             </div>
@@ -37,7 +50,7 @@ let LoginForm = (props: loginFormType) => {
     )
 }
 
-export const LoginReduxForm = reduxForm({
+export const LoginReduxForm = reduxForm<any, any>({
     // a unique name for the form
     form: 'login'
 })(LoginForm)

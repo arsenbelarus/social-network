@@ -10,13 +10,11 @@ export type authType = {
     email: string | null,
     login: string | null,
     isAuth: boolean,
+    captchaUrl: string | null,
 }
 
 // PROFILE PAGE TYPES
-export type contactsType = {
-    facebook: string | null, website: string | null, vk: string | null, twitter: string | null,
-    instagram: string | null, youtube: string | null, github: string | null, mainLink: string | null
-}
+export type contactsType = { [key: string]: string; }
 export type profileType = {
     aboutMe: string | null, contacts: contactsType, lookingForAJob: boolean,
     lookingForAJobDescription: string | null, fullName: string | null, userId: number, photos: photosType,

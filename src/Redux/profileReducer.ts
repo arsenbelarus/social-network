@@ -1,9 +1,12 @@
 import {photosType, profilePageType, profileType} from "./Types";
 import {profileApi, userApi} from "../API/api";
+import {stopSubmit} from "redux-form";
+
 const addPost = "ADD-POST";
 const SET_USERS_PROFILE = "SET_USERS_PROFILE";
 const SET_USER_STATUS = "SET_USER_STATUS";
 const SET_USER_PHOTO = "SET_USER_PHOTO";
+const SET_UPDATED_PROFILE_STATUS = "SET_UPDATED_PROFILE_STATUS";
 const DELETE_POST = "DELETE_POST";
 
 
@@ -47,6 +50,20 @@ const profileReducer = (state: profilePageType = initialState, action: any) => {
                 ...state,
                 profile: {...state.profile, photos: action.photos}
             }
+        case SET_UPDATED_PROFILE_STATUS:
+            return {
+                ...state,
+                profile: {
+                    ...state.profile,
+                    fullName: action.profile.fullName,
+                    lookingForAJobDescription: action.profile.lookingForAJobDescription,
+                    lookingForAJob: action.profile.lookingForAJob,
+                    aboutMe: action.profile.aboutMe,
+                    contacts: {
+                        ...action.profile.contacts
+                    }
+                }
+            }
         default:
             return state;
     }
@@ -61,6 +78,7 @@ export const deletePostActionCreator = (id: number) => {
 const setUsersProfile = (profile: profileType) => ({type: SET_USERS_PROFILE, profile})
 const setUserStatus = (status: string) => ({type: SET_USER_STATUS, status})
 const setUserPhoto = (photos: photosType) => ({type: SET_USER_PHOTO, photos})
+const setUpdatedProfileData = (profile: profileType) => ({type: SET_UPDATED_PROFILE_STATUS, profile})
 
 export const getUserProfile = (userId: number) => {
     return (dispatch: any) => {
@@ -99,6 +117,14 @@ export const savePhoto = (file: File) => {
             });
     }
 }
-
-
+export const updateProfileData = (profile: profileType) => async (dispatch: any) => {
+    const response = await profileApi.updateProfileData(profile)
+    if (response.data.resultCode === 0) {
+        dispatch(setUpdatedProfileData(profile))
+    } else {
+        let key = response.data.messages[0].match(/Contacts->(\w+)/)[1].toLowerCase();
+        dispatch(stopSubmit("profileData", {contacts: {[key]: response.data.messages[0]}}))
+        return Promise.reject(response.data.messages[0])
+    }
+}
 export default profileReducer;

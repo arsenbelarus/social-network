@@ -6,3 +6,10 @@ img {
 .description {
     padding: 20px;
 }
+
+.formSummaryError {
+    border: 1px solid red;
+    padding: 5px;
+    color: red;
+    width: 200px;
+}
