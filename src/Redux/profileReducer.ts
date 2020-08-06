@@ -1,5 +1,5 @@
-import {photosType, profilePageType, profileType} from "./Types";
-import {profileApi, userApi} from "../API/api";
+import {photosType, postsDataType, postType, profilePageType, profileType} from "./Types";
+import {postApi, profileApi, userApi} from "../API/api";
 import {stopSubmit} from "redux-form";
 
 const addPost = "ADD-POST";
@@ -8,32 +8,32 @@ const SET_USER_STATUS = "SET_USER_STATUS";
 const SET_USER_PHOTO = "SET_USER_PHOTO";
 const SET_UPDATED_PROFILE_STATUS = "SET_UPDATED_PROFILE_STATUS";
 const DELETE_POST = "DELETE_POST";
+const SET_POSTS = "SET_POSTS";
 
 
 let initialState = {
     profile: null,
     status: "",
-    postsData: [
-        {id: 1, message: "How are you?", likesCount: 15},
-        {id: 2, message: "It's my first post", likesCount: 20},
-        {id: 3, message: "I want to learn React", likesCount: 35},
-        {id: 4, message: "Lorem ipsum", likesCount: 1},
-    ],
+    postsData: [],
 }
 
 const profileReducer = (state: profilePageType = initialState, action: any) => {
 
     switch (action.type) {
         case addPost:
-            let newPost = {id: 5, message: action.addNewPost, likesCount: 0}
             return {
                 ...state,
-                postsData: [...state.postsData, newPost],
+                postsData: [...state.postsData, {...action.post}],
             }
         case DELETE_POST:
             return {
                 ...state,
                 postsData: state.postsData.filter(p => p.id !== action.id),
+            }
+        case SET_POSTS:
+            return {
+                ...state,
+                postsData: action.posts,
             }
         case SET_USERS_PROFILE:
             return {
@@ -69,12 +69,13 @@ const profileReducer = (state: profilePageType = initialState, action: any) => {
     }
 }
 
-export const addPostActionCreator = (addNewPost: string) => {
-    return {type: addPost, addNewPost}
+export const addPostActionCreator = (post: postType) => {
+    return {type: addPost, post}
 }
 export const deletePostActionCreator = (id: number) => {
     return {type: DELETE_POST, id}
 }
+const setPosts = (posts: postsDataType) => ({type: SET_POSTS, posts})
 const setUsersProfile = (profile: profileType) => ({type: SET_USERS_PROFILE, profile})
 const setUserStatus = (status: string) => ({type: SET_USER_STATUS, status})
 const setUserPhoto = (photos: photosType) => ({type: SET_USER_PHOTO, photos})
@@ -117,6 +118,7 @@ export const savePhoto = (file: File) => {
             });
     }
 }
+
 export const updateProfileData = (profile: profileType) => async (dispatch: any) => {
     const response = await profileApi.updateProfileData(profile)
     if (response.data.resultCode === 0) {
@@ -127,4 +129,29 @@ export const updateProfileData = (profile: profileType) => async (dispatch: any)
         return Promise.reject(response.data.messages[0])
     }
 }
+
+export const getPosts = () => async (dispatch: any) => {
+    debugger
+    const response = await postApi.getPosts()
+    if (response.status === 200) {
+        response.data = Object.keys(response.data).map(key => {// @ts-ignore
+            return [response.data[key], key]})
+        dispatch(setPosts(response.data))
+    }
+}
+
+export const sendNewPost = (post: postType) => async (dispatch: any) => {
+    const response = await postApi.sendPost(post)
+    if (response.status === 200) {
+        dispatch(getPosts())
+    }
+}
+export const deletePost = (serverID: string) => async (dispatch: any) => {
+    const response = await postApi.deletePost(serverID)
+    if (response.status === 200) {
+        dispatch(getPosts())
+    }
+}
+
+
 export default profileReducer;

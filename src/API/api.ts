@@ -1,11 +1,19 @@
 import axios from "axios";
-import {profileType} from "../Redux/Types";
+import {postsDataType, postType, profileType} from "../Redux/Types";
 
 const axiosInstance = axios.create({
     withCredentials: true,
     baseURL: "https://social-network.samuraijs.com/api/1.0/",
     headers: {
         "API-KEY": "a318ecb3-f5df-4512-99ed-aabe354d9b6f"
+    },
+})
+
+const axiosFireBase = axios.create({
+    baseURL: "https://social-network-1f63a.firebaseio.com/",
+    headers: {
+        "Content-Type": "text/plain",
+        "API-KEY": "AIzaSyCllyQV9B_bsPepLBxHZCFa85p5cLfJbs4",
     },
 })
 
@@ -72,6 +80,18 @@ export const loginApi = {
 export const securityApi = {
     getCaptchaUrl () {
         return axiosInstance.get("security/get-captcha-url")
+    }
+}
+
+export const postApi = {
+    sendPost (data: postType) {
+        return axiosFireBase.post("posts.json", data)
+    },
+    getPosts () {
+        return axiosFireBase.get("posts.json")
+    },
+    deletePost (serverID: string) {
+        return axiosFireBase.delete(`posts/${serverID}.json`)
     }
 }
 

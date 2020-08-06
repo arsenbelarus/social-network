@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route} from "react-router-dom";
+import {Route, Switch, Redirect} from "react-router-dom";
 import './App.css';
 import Navbar from "./Components/Navbar/Navbar";
 import Music from "./Components/Music/Music";
@@ -32,17 +32,24 @@ class App extends React.Component<any, any> {
                 <HeaderContainer/>
                 <Navbar/>
                 <div className={"app-wrapper-content"}>
-                    <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
-                    <Route path='/dialogs' render={() => {
-                        return <React.Suspense fallback={<Preloader/>}>
-                                     <DialogsContainer/>
-                               </React.Suspense>
-                    }}/>
-                    <Route path='/news' render={() => <Music/>}/>
-                    <Route path='/music' render={() => <News/>}/>
-                    <Route path='/settings' render={() => <Settings/>}/>
-                    <Route path='/users' render={() => <UsersContainer/>}/>
-                    <Route path='/login' render={() => <Login/>}/>
+                    <Switch>
+                        <Route exact path='/'
+                               render={() => <Redirect to={"/profile"}/>}/>
+                        <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
+                        <Route path='/dialogs' render={() => {
+                            return <React.Suspense fallback={<Preloader/>}>
+                                <DialogsContainer/>
+                            </React.Suspense>
+                        }}/>
+                        <Route path='/news' render={() => <Music/>}/>
+                        <Route path='/music' render={() => <News/>}/>
+                        <Route path='/settings' render={() => <Settings/>}/>
+                        <Route path='/users' render={() => <UsersContainer/>}/>
+                        <Route path='/login' render={() => <Login/>}/>
+                        <Route path='*' render={() => <div> 404 NOT FOUND</div> }/>
+
+                    </Switch>
+
                 </div>
                 <div style={{gridArea: "r", backgroundColor: "black"}}>
                     <FriendsContainer/>

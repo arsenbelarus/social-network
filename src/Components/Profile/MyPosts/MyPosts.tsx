@@ -1,24 +1,37 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {AddPostReduxForm} from "./AddPostForm";
+import {postType} from "../../../Redux/Types";
 
 type propsType = {
-    posts: Array<{ id: number, message: string, likesCount: number }>,
-    addPost: (addNewPost: string) => void,
+    posts: any,
+    sendNewPost: (post: postType) => void,
+    deletePost: (serverID: string) => void,
 }
 
 
-
 const MyPosts = React.memo((props: propsType) => {
-    let postElements = props.posts.map((p,i) => <Post key={i} message ={p.message} likesCount = {p.likesCount} />)
-
-    const addPost = (addNewPost: string) => {
-        props.addPost(addNewPost);
+    let postElements;
+    debugger
+    const deletePost = useCallback((serverID: string) => {
+        props.deletePost(serverID)
+    }, [props.deletePost])
+    if (props.posts !== null) {
+        postElements = props.posts.map((p: any) => {
+            return <Post key={p[0].id}
+                         message={p[0].message}
+                         likesCount={p[0].likesCount}
+                         serverID={p[1]}
+                         deletePost={deletePost}
+            />
+        }).reverse()
     }
 
+
     const onSubmit = (values: any) => {
-        addPost(values.addNewPost)
+        const post = {id: Math.random(), message: values.addNewPost, likesCount: 0}
+        props.sendNewPost(post)
     }
 
     return (
