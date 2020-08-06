@@ -5,13 +5,14 @@ type propsType = {
     message: string,
     likesCount: number,
     deletePost: (postId: string) => void,
-    serverID: string
+    serverID: string,
+    avatar: string,
 };
 
 const Post = React.memo((props: propsType) => {
     return (
         <div className={s.item}>
-            <img src={"https://greendestinations.org/wp-content/uploads/2019/05/avatar-exemple.jpg"}/>
+            <img src={props.avatar ? props.avatar : "https://greendestinations.org/wp-content/uploads/2019/05/avatar-exemple.jpg"}/>
             {props.message}
             <div>
                 <span>{props.likesCount}  likes</span>

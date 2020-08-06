@@ -41,8 +41,8 @@ class App extends React.Component<any, any> {
                                 <DialogsContainer/>
                             </React.Suspense>
                         }}/>
-                        <Route path='/news' render={() => <Music/>}/>
-                        <Route path='/music' render={() => <News/>}/>
+                        <Route path='/music' render={() => <Music/>}/>
+                        <Route path='/news' render={() => <News/>}/>
                         <Route path='/settings' render={() => <Settings/>}/>
                         <Route path='/users' render={() => <UsersContainer/>}/>
                         <Route path='/login' render={() => <Login/>}/>

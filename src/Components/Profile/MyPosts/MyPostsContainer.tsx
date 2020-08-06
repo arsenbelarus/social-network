@@ -3,6 +3,9 @@ import {deletePost, getPosts, sendNewPost} from "../../../Redux/profileReducer";
 import MyPosts from "./MyPosts";
 import {_stateType} from "../../../Redux/Types";
 import {connect} from "react-redux";
+import {compose} from "redux";
+import {withRouter} from "react-router-dom";
+import {withAuthRedirect} from "../../../HOC/withAuthRedirect";
 
 
 class MyPostsContainer extends React.Component<any> {
@@ -17,6 +20,8 @@ class MyPostsContainer extends React.Component<any> {
                 <MyPosts posts={this.props.posts}
                          sendNewPost={this.props.sendNewPost}
                          deletePost={this.props.deletePost}
+                         avatar={this.props.avatar}
+                         isOwner={!this.props.match.params.userId}
                 />
             </div>
         )
@@ -27,9 +32,13 @@ class MyPostsContainer extends React.Component<any> {
 const mapStateToProps = (state: _stateType) => {
     return {
         posts: state.profilePage.postsData,
+        avatar: state.profilePage.profile?.photos.small
     }
 }
 
 
 
-export default connect(mapStateToProps, {sendNewPost, getPosts, deletePost})(MyPostsContainer)
+export default compose(
+    withAuthRedirect,
+    withRouter,
+    connect(mapStateToProps, {sendNewPost, getPosts, deletePost}))(MyPostsContainer)

@@ -20,16 +20,7 @@ let initialState = {
 const profileReducer = (state: profilePageType = initialState, action: any) => {
 
     switch (action.type) {
-        case addPost:
-            return {
-                ...state,
-                postsData: [...state.postsData, {...action.post}],
-            }
-        case DELETE_POST:
-            return {
-                ...state,
-                postsData: state.postsData.filter(p => p.id !== action.id),
-            }
+
         case SET_POSTS:
             return {
                 ...state,
@@ -69,12 +60,6 @@ const profileReducer = (state: profilePageType = initialState, action: any) => {
     }
 }
 
-export const addPostActionCreator = (post: postType) => {
-    return {type: addPost, post}
-}
-export const deletePostActionCreator = (id: number) => {
-    return {type: DELETE_POST, id}
-}
 const setPosts = (posts: postsDataType) => ({type: SET_POSTS, posts})
 const setUsersProfile = (profile: profileType) => ({type: SET_USERS_PROFILE, profile})
 const setUserStatus = (status: string) => ({type: SET_USER_STATUS, status})
@@ -131,10 +116,9 @@ export const updateProfileData = (profile: profileType) => async (dispatch: any)
 }
 
 export const getPosts = () => async (dispatch: any) => {
-    debugger
     const response = await postApi.getPosts()
     if (response.status === 200) {
-        response.data = Object.keys(response.data).map(key => {// @ts-ignore
+        response.data = Object.keys(response.data).map(key => {
             return [response.data[key], key]})
         dispatch(setPosts(response.data))
     }
@@ -146,6 +130,7 @@ export const sendNewPost = (post: postType) => async (dispatch: any) => {
         dispatch(getPosts())
     }
 }
+
 export const deletePost = (serverID: string) => async (dispatch: any) => {
     const response = await postApi.deletePost(serverID)
     if (response.status === 200) {

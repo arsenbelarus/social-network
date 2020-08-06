@@ -5,34 +5,40 @@ import {AddPostReduxForm} from "./AddPostForm";
 import {postType} from "../../../Redux/Types";
 
 type propsType = {
-    posts: any,
+    posts: [postType, string],
     sendNewPost: (post: postType) => void,
     deletePost: (serverID: string) => void,
+    avatar: string,
+    isOwner: boolean,
 }
 
 
 const MyPosts = React.memo((props: propsType) => {
     let postElements;
-    debugger
     const deletePost = useCallback((serverID: string) => {
         props.deletePost(serverID)
-    }, [props.deletePost])
+    }, [props])
     if (props.posts !== null) {
-        postElements = props.posts.map((p: any) => {
-            return <Post key={p[0].id}
-                         message={p[0].message}
-                         likesCount={p[0].likesCount}
-                         serverID={p[1]}
-                         deletePost={deletePost}
-            />
-        }).reverse()
+        if (props.isOwner) {
+            if (props.isOwner) {
+                postElements = props.posts.map((p: any) => {
+                    return <Post key={p[0].id}
+                                 message={p[0].message}
+                                 likesCount={p[0].likesCount}
+                                 serverID={p[1]}
+                                 deletePost={deletePost}
+                                 avatar={props.avatar}
+                    />
+                }).reverse()
+            }
+        }
     }
 
 
-    const onSubmit = (values: any) => {
+    const onSubmit = useCallback((values: any) => {
         const post = {id: Math.random(), message: values.addNewPost, likesCount: 0}
         props.sendNewPost(post)
-    }
+    }, [])
 
     return (
         <div className={s.main}>

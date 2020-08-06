@@ -1,12 +1,12 @@
 import React from 'react';
-import {Field, reduxForm, SubmitHandler} from "redux-form";
+import {Field, reduxForm, reset, SubmitHandler} from "redux-form";
 import {Textarea} from "../../Common/FormControls/FormControls";
 
 type propsType = {
     handleSubmit: SubmitHandler;
 }
 
-function AddPostForm(props: propsType) {
+const AddPostForm = React.memo((props: propsType) => {
 
     return (
         <form onSubmit={props.handleSubmit}>
@@ -19,8 +19,13 @@ function AddPostForm(props: propsType) {
                 </div>
         </form>
     )
+})
+
+const afterSubmit = (result: any, dispatch: any) => {
+    dispatch(reset('AddPost'));
 }
 
 export const AddPostReduxForm = reduxForm({
-    form: 'AddPost'
+    form: 'AddPost',
+    onSubmitSuccess: afterSubmit,
 })(AddPostForm)
