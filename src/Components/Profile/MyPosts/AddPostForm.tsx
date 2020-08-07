@@ -1,6 +1,6 @@
 import React from 'react';
 import {Field, reduxForm, reset, SubmitHandler} from "redux-form";
-import {Textarea} from "../../Common/FormControls/FormControls";
+import {MyTextarea} from "../../Common/FormControls/FormControls";
 
 type propsType = {
     handleSubmit: SubmitHandler;
@@ -11,7 +11,7 @@ const AddPostForm = React.memo((props: propsType) => {
     return (
         <form onSubmit={props.handleSubmit}>
                 <div>
-                    <Field component={Textarea} name={"addNewPost"}
+                    <Field component={MyTextarea} name={"addNewPost"}
                            placeholder={"Add your post here"}/>
                 </div>
                 <div>

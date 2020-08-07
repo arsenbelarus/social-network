@@ -1,26 +1,19 @@
 .header {
-    grid-area: h;
-    background-color: forestgreen;
+    position: fixed;
+    top: 0;
     height: 100px;
 }
 
-.header img {
-    width: 80px;
+.loggedInUser {
+    position: absolute;
+    right: 0;
+    margin-right: 10px;
+    color: ivory;
 }
 
-.header h1 {
-    grid-area: h;
-    margin: 0;
-    padding: 0;
-}
-
-.loginBlock {
-    float: right;
-    padding-right: 1rem;
-    padding-top: 1rem;
-}
-
-.loginBlock a {
-    color: white;
-    text-decoration: none;
+.loggedInUserName {
+    box-shadow: 3px 3px 4px 2px #b0b6c1;
+    padding: 5px;
+    text-align: center;
+    margin-right: 10px;
 }

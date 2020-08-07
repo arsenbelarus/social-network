@@ -1,5 +1,5 @@
-.app-wrapper {
-    width: 90%;
+.appWrapper {
+    width: 80%;
     margin-left: auto;
     margin-right: auto;
     display: grid;
@@ -7,11 +7,11 @@
                             "h h h"
                             "l c r";
     grid-template-rows: 100px 1fr;
-    grid-template-columns: 2fr 10fr 2fr;
+    grid-template-columns: 2fr 8fr 2fr;
     grid-gap: 10px;
 }
 
-.app-wrapper-content {
+.appWrapperContent {
     grid-area: c;
     background-color: lightgray;
 }

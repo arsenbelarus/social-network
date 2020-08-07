@@ -1,6 +1,6 @@
 import React from "react";
 import {Field, InjectedFormProps, reduxForm} from 'redux-form'
-import {Input} from "../Common/FormControls/FormControls";
+import {MyInput} from "../Common/FormControls/FormControls";
 import {maxLength, requiredField} from "../../Utils/Validation/validators";
 import s from "../Common/FormControls/FormControls.module.css"
 
@@ -15,15 +15,15 @@ let LoginForm: React.FC<InjectedFormProps<any, loginFormType> & loginFormType> =
     return (
         <form onSubmit={handleSubmit}>
             <div>
-                <Field type={"text"} name={"email"} component={Input} placeholder={"email"}
+                <Field type={"text"} name={"email"} component={MyInput} placeholder={"email"}
                        validate={[requiredField, maxLength50]}/>
             </div>
             <div>
-                <Field type={"password"} name={"password"} component={Input} placeholder={"password"}
+                <Field type={"password"} name={"password"} component={MyInput} placeholder={"password"}
                        validate={[requiredField, maxLength10]}/>
             </div>
             <div style={{display: "inline-flex"}}>
-                <Field type={"checkbox"} name={"rememberMe"} component={Input}/> <span>remember me</span>
+                <Field type={"checkbox"} name={"rememberMe"} component={MyInput}/> <span>remember me</span>
             </div>
             {
                 captchaUrl &&
@@ -32,7 +32,7 @@ let LoginForm: React.FC<InjectedFormProps<any, loginFormType> & loginFormType> =
             {
                 captchaUrl &&
                 <div>
-                    <Field type={"text"} name={"captcha"} component={Input}
+                    <Field type={"text"} name={"captcha"} component={MyInput}
                            placeholder={"Type antibot symbols"}
                            validate={[requiredField]}/>
                 </div>

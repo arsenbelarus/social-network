@@ -1,6 +1,7 @@
 import React from "react";
 import s from "./ProfileInfo.module.css";
 import {profileType} from "../../../Redux/Types";
+import {Button} from "@material-ui/core";
 
 type ProfileDataTypes = {
     profile: profileType
@@ -10,12 +11,11 @@ type ProfileDataTypes = {
 
 const ProfileData = (props: ProfileDataTypes) => {
     return (
-        <div>
-
+        <div className={s.profileData}>
             {
                 props.isOwner &&
-                <div>
-                    <button onClick={props.activateEditMode}> <strong> Edit Profile </strong> </button>
+                <div className={s.profileDataButton}>
+                    <Button variant={"outlined"} onClick={props.activateEditMode}> <strong> Edit Profile </strong> </Button>
                 </div>
             }
 

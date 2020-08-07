@@ -1,10 +1,44 @@
-img {
-    width: 300px;
+.profilePhotoAndData {
+    display: flex;
+    padding: 10px;
+}
+
+.profilePhoto {
+    width: 40%;
+    padding-right: 20px;
+}
+
+.profileData {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+}
+
+.profileData form {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+}
+
+.formControlItem {
+    width: 100%;
+}
+
+.profileDataButton {
+    align-self: flex-end;
+}
+
+.status {
+    margin-top: 10px;
+}
+
+.profilePhoto img {
+    width: 100%;
     height: auto;
 }
 
 .description {
-    padding: 20px;
+    margin-bottom: 10px;
 }
 
 .formSummaryError {

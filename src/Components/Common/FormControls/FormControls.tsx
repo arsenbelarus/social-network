@@ -1,15 +1,17 @@
 import React from "react";
 import s from "./FormControls.module.css"
+import {Input, TextField} from "@material-ui/core";
+
 
 type propsType = {}
 
 // @ts-ignore
-export const Textarea = ({input, meta, ...props}) => {
+export const MyTextarea = ({input, meta, ...props}) => {
     const hasError = meta.touched && meta.error;
     return (
         <div className={s.formControl + " " + (hasError ? s.error : "")}>
             <div>
-                <textarea {...input} {...props} />
+                <TextField variant={"outlined"} multiline {...input} {...props} />
             </div>
             {hasError &&  <span>{meta.error}</span> }
         </div>
@@ -17,7 +19,20 @@ export const Textarea = ({input, meta, ...props}) => {
 }
 
 // @ts-ignore
-export const Input = ({input, meta, ...props}) => {
+export const MyInput = ({input, meta, ...props}) => {
+    const hasError = meta.touched && meta.error;
+    return (
+        <div className={s.formControl + " " + (hasError ? s.error : "")}>
+            <div>
+                <Input {...input} {...props} />
+            </div>
+            {hasError &&  <span>{meta.error}</span> }
+        </div>
+    )
+}
+
+// @ts-ignore
+export const InputCheckbox = ({input, meta, ...props}) => {
     const hasError = meta.touched && meta.error;
     return (
         <div className={s.formControl + " " + (hasError ? s.error : "")}>

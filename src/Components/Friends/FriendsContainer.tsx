@@ -13,7 +13,7 @@ class FriendsContainer extends React.Component<any> {
 
     render() {
         return (
-            <div>
+            <div style={{gridArea: "r", backgroundColor: "black"}}>
                 <Friends friends={this.props.friends}/>
             </div>
         )

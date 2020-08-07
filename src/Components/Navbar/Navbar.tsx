@@ -7,8 +7,8 @@ type propsType = {
 }
 function Navbar(props: propsType) {
     return (
-        <div className={s.nav}>
-            <nav>
+
+            <nav className={s.nav}>
                 <div className={s.item}>
                     <NavLink to={"/profile"} activeClassName={s.activeLink}> Profile </NavLink>
                 </div>
@@ -28,7 +28,7 @@ function Navbar(props: propsType) {
                     <NavLink to={"/settings"} activeClassName={s.activeLink}> Settings</NavLink>
                 </div>
             </nav>
-        </div>
+
     )
 }
 

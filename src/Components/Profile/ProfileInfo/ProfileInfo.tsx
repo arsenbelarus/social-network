@@ -5,6 +5,7 @@ import avatarLogo from "../../../Assets/Images/avatar.jpg"
 import ProfileStatusWithHooks from "./ProfileStatusWtihHooks";
 import ProfileData from "./ProfileData";
 import {ProfileDataReduxForm} from "./ProfileDataForm";
+import {Input} from "@material-ui/core";
 
 
 type propsType = {
@@ -37,20 +38,26 @@ const ProfileInfo: React.FC<propsType> = ({profile, status, update, isOwner, sav
         <div>
             {profile &&
             <div>
-                <div className={s.description}>
-                    <img src={profile.photos.large || avatarLogo} alt="large avatar"/>
-                    {isOwner && <input type={"file"} onChange={photoUploadHandler}/>}
+                <div className={s.profilePhotoAndData}>
+                    <div className={s.profilePhoto}>
+                        <img src={profile.photos.large || avatarLogo} alt="large avatar"/>
+                        {isOwner && <Input type="file" onChange={photoUploadHandler}/>}
+                        <ProfileStatusWithHooks profile={profile} status={status}
+                                                update={update} isOwner={isOwner}/>
+                    </div>
+
+                    {
+                        editMode
+                            ? <ProfileDataReduxForm initialValues={profile} onSubmit={onSubmit}
+                                                    profile={profile}/>
+                            : <ProfileData isOwner={isOwner}
+                                           profile={profile}
+                                           activateEditMode={() => setEditMode(true)}/>
+                    }
                 </div>
-                {
-                    editMode
-                        ? <ProfileDataReduxForm initialValues={profile} onSubmit={onSubmit}
-                                                profile={profile}/>
-                        : <ProfileData isOwner={isOwner}
-                                       profile={profile}
-                                       activateEditMode={() => setEditMode(true)}/>
-                }
-                <ProfileStatusWithHooks profile={profile} status={status}
-                                        update={update} isOwner={isOwner}/>
+
+
+
             </div>
             }
 
